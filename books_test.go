@@ -78,7 +78,7 @@ func TestAddBook_AddsBookintoCatalogByAppending(t *testing.T) {
 	if ok {
 		t.Fatal("book already present")
 	}
-	books.AddBook(book.Book{
+	books.AddBook(books.Book{
 		Title:  "The Prize of all the Oceans",
 		Author: "Glyn Williams",
 		Copies: 2,
