@@ -6,12 +6,9 @@ import (
 )
 
 func main() {
-	book := books.Book{
-		Title:  "Engineering in Plain Sight",
-		Author: "Grady Hillhouse",
-		Copies: 2,
+	for _, book := range books.GetAllBooks() {
+		fmt.Println(books.BookToString(book))
 	}
-	fmt.Println(books.BookToString(book))
 }
 
 /*
@@ -27,4 +24,11 @@ the package in books.go by using the syntax package books.
 
 Moreover, since the struct likes in a different folder , we need to call it using the books.Book
 when declaring our book variable.
+
+the for _, book := range books.GetAllBook(){
+fmt.Println(books.BooktToString(book))
+}
+-, is a blank identifier that tells the go complier to ignore the index value of the slice of book, since the range operator gives two values.
+since we are not asking for index , instead only need the values of book[0], otherwise I would need to use some other variable i , in order to store the index
+and return in fmt.Println() .moreover the index start with zero just like python.
 */
