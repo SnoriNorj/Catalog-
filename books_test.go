@@ -2,6 +2,7 @@ package books_test
 
 import (
 	"books"
+	"cmp"
 	"slices"
 	"testing"
 )
@@ -37,6 +38,10 @@ func TestGetAllBooks_ReturnsAllBooks(t *testing.T) {
 		},
 	}
 	got := books.GetAllBooks()
+	slices.SortFunc(got, func(a, b books.Book) int {
+		return cmp.Compare(a.Author, b.Author)
+	})
+
 	if !slices.Equal(want, got) {
 		t.Fatalf("want %#v, got %#v", want, got)
 	}
@@ -64,6 +69,24 @@ func TestGetBook_ReturnsFalseWhenBookNotFound(t *testing.T) {
 	_, ok := books.GetBook("nonexistent ID")
 	if ok {
 		t.Fatal("want false for nonexistent ID, got true")
+	}
+}
+
+func TestAddBook_AddsBookintoCatalogByAppending(t *testing.T) {
+	t.Parallel()
+	_, ok := books.GetBook("123")
+	if ok {
+		t.Fatal("book already present")
+	}
+	books.AddBook(book.Book{
+		Title:  "The Prize of all the Oceans",
+		Author: "Glyn Williams",
+		Copies: 2,
+		ID:     "123",
+	})
+	_, ok = books.GetBook("123")
+	if !ok {
+		t.Fatal("added book not found")
 	}
 }
 

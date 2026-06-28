@@ -13,7 +13,7 @@ type Book struct {
 	ID     string
 }
 
-var Catalog = map[string]Book{
+var catalog = map[string]Book{
 	"abc": {
 		Title:  "In The Company of Cheerful Ladies",
 		Author: "Alexander McCall Smith",
@@ -34,17 +34,16 @@ func BookToString(book Book) string {
 }
 
 func GetAllBooks() []Book {
-	return slices.Collect(maps.Values(Catalog))
+	return slices.Collect(maps.Values(catalog))
 }
 
 func GetBook(ID string) (Book, bool) {
-	for _, book := range Catalog {
-		if book.ID == ID {
-			return book, true
-		}
+	book, ok := catalog[ID]
+	return book, ok
+}
 
-	}
-	return Book{}, false
+func AddBook(book Book) {
+	catalog[book.ID] = book
 }
 
 /*

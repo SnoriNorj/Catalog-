@@ -14,7 +14,7 @@ func main() {
 	ID := os.Args[1]
 	book, ok := books.GetBook(ID)
 	if !ok {
-		fmt.Println("Sorry, I couldn't find that book in the Catalog")
+		fmt.Println("Sorry, I couldn't find that book in the Catalog.")
 		return
 	}
 	fmt.Println(books.BookToString(book))
