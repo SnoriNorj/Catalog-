@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-func getTestCatalog() map[string]books.Book {
-	return map[string]books.Book{
+func getTestCatalog() books.Catalog {
+	return books.Catalog{
 		"abc": {
 			Title:  "In The Company of Cheerful Ladies",
 			Author: "Alexander McCall Smith",
@@ -57,7 +57,7 @@ func TestGetAllBooks_ReturnsAllBooks(t *testing.T) {
 			ID:     "xyz",
 		},
 	}
-	got := books.GetAllBooks(catalog)
+	got := catalog.GetAllBooks()
 	slices.SortFunc(got, func(a, b books.Book) int {
 		return cmp.Compare(a.Author, b.Author)
 	})
@@ -76,7 +76,7 @@ func TestGetBook_FindsBookInCatalogByID(t *testing.T) {
 		Copies: 1,
 		ID:     "abc",
 	}
-	got, ok := books.GetBook(catalog, "abc")
+	got, ok := catalog.GetBook("abc")
 	if !ok {
 		t.Fatalf("book not found")
 	}
@@ -88,7 +88,7 @@ func TestGetBook_FindsBookInCatalogByID(t *testing.T) {
 func TestGetBook_ReturnsFalseWhenBookNotFound(t *testing.T) {
 	t.Parallel()
 	catalog := getTestCatalog()
-	_, ok := books.GetBook(catalog, "nonexistent ID")
+	_, ok := catalog.GetBook("nonexistent ID")
 	if ok {
 		t.Fatal("want false for nonexistent ID, got true")
 	}
@@ -97,17 +97,17 @@ func TestGetBook_ReturnsFalseWhenBookNotFound(t *testing.T) {
 func TestAddBook_AddsBookintoCatalogByAppending(t *testing.T) {
 	t.Parallel()
 	catalog := getTestCatalog()
-	_, ok := books.GetBook(catalog, "123")
+	_, ok := catalog.GetBook("123")
 	if ok {
 		t.Fatal("book already present")
 	}
-	books.AddBook(catalog, books.Book{
+	catalog.AddBook(books.Book{
 		Title:  "The Prize of all the Oceans",
 		Author: "Glyn Williams",
 		Copies: 2,
 		ID:     "123",
 	})
-	_, ok = books.GetBook(catalog, "123")
+	_, ok = catalog.GetBook("123")
 	if !ok {
 		t.Fatal("added book not found")
 	}
