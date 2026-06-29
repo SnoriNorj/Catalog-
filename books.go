@@ -33,16 +33,16 @@ func BookToString(book Book) string {
 		book.Author, book.Copies)
 }
 
-func GetAllBooks() []Book {
+func GetAllBooks(catalog map[string]Book) []Book {
 	return slices.Collect(maps.Values(catalog))
 }
 
-func GetBook(ID string) (Book, bool) {
+func GetBook(catalog map[string]Book, ID string) (Book, bool) {
 	book, ok := catalog[ID]
 	return book, ok
 }
 
-func AddBook(book Book) {
+func AddBook(catalog map[string]Book, book Book) {
 	catalog[book.ID] = book
 }
 
