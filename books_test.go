@@ -10,14 +10,14 @@ import (
 func getTestCatalog() map[string]books.Book {
 	return map[string]books.Book{
 		"abc": {
-			Title:  " In Company of Cheeful Ladies",
+			Title:  "In The Company of Cheerful Ladies",
 			Author: "Alexander McCall Smith",
 			Copies: 1,
 			ID:     "abc",
 		},
 		"xyz": {
 			Title:  "White Heat",
-			Author: "Dominic Sandbook",
+			Author: "Dominic Sandbrook",
 			Copies: 2,
 			ID:     "xyz",
 		},

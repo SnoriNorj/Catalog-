@@ -13,21 +13,6 @@ type Book struct {
 	ID     string
 }
 
-var catalog = map[string]Book{
-	"abc": {
-		Title:  "In The Company of Cheerful Ladies",
-		Author: "Alexander McCall Smith",
-		Copies: 1,
-		ID:     "abc",
-	},
-	"xyz": {
-		Title:  "White Heat",
-		Author: "Dominic Sandbrook",
-		Copies: 2,
-		ID:     "xyz",
-	},
-}
-
 func BookToString(book Book) string {
 	return fmt.Sprintf("%v by %v (copies: %v)", book.Title,
 		book.Author, book.Copies)
@@ -48,14 +33,14 @@ func AddBook(catalog map[string]Book, book Book) {
 func GetCatalog() map[string]Book {
 	return map[string]Book{
 		"abc": {
-			Title:  " In Company of Cheeful Ladies",
+			Title:  "In The Company of Cheerful Ladies",
 			Author: "Alexander McCall Smith",
 			Copies: 1,
 			ID:     "abc",
 		},
 		"xyz": {
 			Title:  "White Heat",
-			Author: "Dominic Sandbook",
+			Author: "Dominic Sandbrook",
 			Copies: 2,
 			ID:     "xyz",
 		},
