@@ -45,6 +45,22 @@ func GetBook(catalog map[string]Book, ID string) (Book, bool) {
 func AddBook(catalog map[string]Book, book Book) {
 	catalog[book.ID] = book
 }
+func GetCatalog() map[string]Book {
+	return map[string]Book{
+		"abc": {
+			Title:  " In Company of Cheeful Ladies",
+			Author: "Alexander McCall Smith",
+			Copies: 1,
+			ID:     "abc",
+		},
+		"xyz": {
+			Title:  "White Heat",
+			Author: "Dominic Sandbook",
+			Copies: 2,
+			ID:     "xyz",
+		},
+	}
+}
 
 /*
 When returning a value from a function we need to specify the return type as shown in
