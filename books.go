@@ -1,8 +1,10 @@
 package books
 
 import (
+	"encoding/json"
 	"fmt"
 	"maps"
+	"os"
 	"slices"
 )
 
@@ -32,6 +34,14 @@ func (catalog Catalog) GetBook(ID string) (Book, bool) {
 func (catalog Catalog) AddBook(book Book) {
 	catalog[book.ID] = book
 }
+
+func (book *Book) SetCopies(copies int) error {
+	if copies < 0 {
+		return fmt.Errorf("negative number of copies: %d", copies)
+	}
+	book.Copies = copies
+	return nil
+}
 func GetCatalog() Catalog {
 	return Catalog{
 		"abc": {
@@ -47,6 +57,20 @@ func GetCatalog() Catalog {
 			ID:     "xyz",
 		},
 	}
+}
+
+func OpenCatalog(path string) (Catalog, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	catalog := Catalog{}
+	err = json.NewDecoder(file).Decode(&catalog)
+	if err != nil {
+		return nil, err
+	}
+	return catalog, nil
 }
 
 /*

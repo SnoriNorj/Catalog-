@@ -11,7 +11,11 @@ func main() {
 		fmt.Println("Usage: find <BOOK ID>")
 		return
 	}
-	catalog := books.GetCatalog()
+	catalog, err := books.OpenCatalog("catalog")
+	if err != nil {
+		fmt.Printf("opening catalog: %v\n", err)
+		return
+	}
 	ID := os.Args[1]
 	book, ok := catalog.GetBook(ID)
 	if !ok {

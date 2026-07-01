@@ -113,7 +113,55 @@ func TestAddBook_AddsBookintoCatalogByAppending(t *testing.T) {
 	}
 }
 
-/*
- when using t.Fataf() we are not returning the values to the user, we
- are running a test and it produces the test after running it.
-*/
+func TestSetCopies_SetNumberOfCopiesToGivenValue(t *testing.T) {
+	t.Parallel()
+	book := books.Book{
+		Copies: 5,
+	}
+	err := book.SetCopies(12)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if book.Copies != 12 {
+		t.Errorf("want 12 copies, got %d", book.Copies)
+	}
+}
+
+func TestSetCopies_ReturnsErrorIfCopiesNegative(t *testing.T) {
+	t.Parallel()
+	book := books.Book{}
+	err := book.SetCopies(-1)
+	if err == nil {
+		t.Error("want error for negative copies, got nil")
+	}
+}
+
+func TestOpenCatalog_ReturnsAllB(t *testing.T) {
+	t.Parallel()
+	catalog, err := books.OpenCatalog("testdata/catalog")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []books.Book{
+		{
+			Title:  "In The Company of Cheerful Ladies",
+			Author: "Alexander McCall Smith",
+			Copies: 1,
+			ID:     "abc",
+		},
+		{
+			Title:  "White Heat",
+			Author: "Dominic Sandbrook",
+			Copies: 2,
+			ID:     "xyz",
+		},
+	}
+	got := catalog.GetAllBooks()
+	slices.SortFunc(got, func(a, b books.Book) int {
+		return cmp.Compare(a.Author, b.Author)
+	})
+
+	if !slices.Equal(want, got) {
+		t.Fatalf("want %#v, got %#v", want, got)
+	}
+}
