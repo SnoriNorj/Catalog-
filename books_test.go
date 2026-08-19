@@ -40,6 +40,28 @@ func getTestCatalog() books.Catalog {
 		}
 	}
 */
+func assertTestBooks(t *testing.T, got[]books.Book) {
+	t.Helper()
+	want := []books.Book {
+		Title: "In the Company of Cheerful Ladies",
+		Author: "Alexander McCall smith",
+		Copies: 1,
+		ID: "abc",
+
+	},
+	{
+	 	Title: "White Heat",
+		Author: "Dominic Sandbrook",
+		Copies: 2,
+		ID: "xyz",
+	},
+	slices.SortFunc(got, func(a, b books.Book) int {
+		return cmp.Compare(a.Author, b.Author)
+	})
+	if !slices.Equal(want, got) {
+		t.Fatalf("want %#v, got %#v", want, got)
+	}
+}
 func TestGetAllBooks_ReturnsAllBooks(t *testing.T) {
 	t.Parallel()
 	catalog := getTestCatalog()
