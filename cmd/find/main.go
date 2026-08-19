@@ -19,15 +19,8 @@ func main() {
 	ID := os.Args[1]
 	book, ok := catalog.GetBook(ID)
 	if !ok {
-		fmt.Println("Sorry, I couldn't find that book in the Catalog.")
+		fmt.Println("Sorry, I couldn't find that book in the catalog.")
 		return
 	}
 	fmt.Println(book)
 }
-
-/*
- the os.Args is getting the ID when you run the program
- that is when you type go run ./cmd/find abc, os.Args is making
- a slice  os.Args = []string {"./cmd.find, xyz"}. that is we using the 2nd index for the
- ID.
-*/

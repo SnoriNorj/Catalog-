@@ -72,8 +72,3 @@ func OpenCatalog(path string) (Catalog, error) {
 	}
 	return catalog, nil
 }
-
-/*
-When returning a value from a function we need to specify the return type as shown in
-the BookToString function.
-*/

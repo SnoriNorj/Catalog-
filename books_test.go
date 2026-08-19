@@ -136,7 +136,7 @@ func TestSetCopies_ReturnsErrorIfCopiesNegative(t *testing.T) {
 	}
 }
 
-func TestOpenCatalog_ReturnsAllB(t *testing.T) {
+func TestOpenCatalog_LoadsCatalogDataFromFile(t *testing.T) {
 	t.Parallel()
 	catalog, err := books.OpenCatalog("testdata/catalog")
 	if err != nil {
@@ -144,7 +144,7 @@ func TestOpenCatalog_ReturnsAllB(t *testing.T) {
 	}
 	want := []books.Book{
 		{
-			Title:  "In The Company of Cheerful Ladies",
+			Title:  "In the Company of Cheerful Ladies",
 			Author: "Alexander McCall Smith",
 			Copies: 1,
 			ID:     "abc",
@@ -160,7 +160,6 @@ func TestOpenCatalog_ReturnsAllB(t *testing.T) {
 	slices.SortFunc(got, func(a, b books.Book) int {
 		return cmp.Compare(a.Author, b.Author)
 	})
-
 	if !slices.Equal(want, got) {
 		t.Fatalf("want %#v, got %#v", want, got)
 	}
